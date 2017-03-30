@@ -237,7 +237,11 @@ function SMARTBUFF_InitItemList()
   SMARTBUFF_GRFLASKWOD2         = GetItemInfo(109156); --"Greater Draenic Strength Flask"
   SMARTBUFF_GRFLASKWOD3         = GetItemInfo(109155); --"Greater Draenic Intellect Flask"
   SMARTBUFF_GRFLASKWOD4         = GetItemInfo(109153); --"Greater Draenic Agility Flask"  
-  
+  SMARTBUFF_FLASKLEG1           = GetItemInfo(127850); --"Flask of Ten Thousand Scars"
+  SMARTBUFF_FLASKLEG2           = GetItemInfo(127849); --"Flask of the Countless Armies"
+  SMARTBUFF_FLASKLEG3           = GetItemInfo(127847); --"Flask of the Whispered Pact"
+  SMARTBUFF_FLASKLEG4           = GetItemInfo(127848); --"Flask of the Seventh Demon"
+
   SMARTBUFF_ELIXIR1             = GetItemInfo(39666);  --"Elixir of Mighty Agility"
   SMARTBUFF_ELIXIR2             = GetItemInfo(44332);  --"Elixir of Mighty Thoughts"
   SMARTBUFF_ELIXIR3             = GetItemInfo(40078);  --"Elixir of Mighty Fortitude"
@@ -305,7 +309,7 @@ function SMARTBUFF_InitSpellIDs()
   SMARTBUFF_FEARWARD        = GetSpellInfo(6346);  --"Fear Ward"
   SMARTBUFF_RENEW           = GetSpellInfo(139);   --"Renew"
   SMARTBUFF_LEVITATE        = GetSpellInfo(1706);  --"Levitate"
-  SMARTBUFF_SHADOWFORM      = GetSpellInfo(15473); --"Shadowform"
+  SMARTBUFF_SHADOWFORM      = GetSpellInfo(232698); --"Shadowform"
   SMARTBUFF_VAMPIRICEMBRACE = GetSpellInfo(15286); --"Vampiric Embrace"
   SMARTBUFF_LIGHTWELL       = GetSpellInfo(724);   --"Lightwell"
   SMARTBUFF_CHAKRA1         = GetSpellInfo(81206)  --"Chakra Sanctuary"
@@ -332,6 +336,10 @@ function SMARTBUFF_InitSpellIDs()
   SMARTBUFF_REFRESHMENT     = GetSpellInfo(42955); --"Conjure Refreshment"
   SMARTBUFF_TEMPSHIELD      = GetSpellInfo(115610);--"Temporal Shield"
   SMARTBUFF_AMPMAGIC        = GetSpellInfo(159916);--"Amplify Magic"
+  SMARTBUFF_PRISBARRIER     = GetSpellInfo(235450);--"Prismatic Barrier"
+  SMARTBUFF_BLAZBARRIER     = GetSpellInfo(235313);--"Blazing Barrier"
+  SMARTBUFF_ARCANEFAMILIAR  = GetSpellInfo(205022);--"Arcane Familiar"
+  
   -- Mage buff links
   S.ChainMageArmor = { SMARTBUFF_FROSTARMOR, SMARTBUFF_MAGEARMOR, SMARTBUFF_MOLTENARMOR };
   
@@ -549,10 +557,15 @@ function SMARTBUFF_InitSpellIDs()
   SMARTBUFF_BGRFLASKWOD2    = GetSpellInfo(156080); --"Greater Draenic Strength Flask"
   SMARTBUFF_BGRFLASKWOD3    = GetSpellInfo(156079); --"Greater Draenic Intellect Flask"
   SMARTBUFF_BGRFLASKWOD4    = GetSpellInfo(156064); --"Greater Draenic Agility Flask"  
+  SMARTBUFF_BFLASKLEG1      = GetSpellInfo(188035); --"Flask of Ten Thousand Scars"
+  SMARTBUFF_BFLASKLEG2      = GetSpellInfo(188034); --"Flask of the Countless Armies"
+  SMARTBUFF_BFLASKLEG3      = GetSpellInfo(188031); --"Flask of the Whispered Pact"
+  SMARTBUFF_BFLASKLEG4      = GetSpellInfo(188033); --"Flask of the Seventh Demon"
   
   S.LinkFlaskCT7            = { SMARTBUFF_BFLASKCT1, SMARTBUFF_BFLASKCT2, SMARTBUFF_BFLASKCT3, SMARTBUFF_BFLASKCT4, SMARTBUFF_BFLASKCT5 };
   S.LinkFlaskMoP            = { SMARTBUFF_BFLASKCT61, SMARTBUFF_BFLASKCT62, SMARTBUFF_BFLASKCT63, SMARTBUFF_BFLASKMOP2, SMARTBUFF_BFLASKMOP3, SMARTBUFF_BFLASKMOP4, SMARTBUFF_BFLASKMOP5, SMARTBUFF_BFLASKMOP6 };
   S.LinkFlaskWoD            = { SMARTBUFF_BFLASKWOD1, SMARTBUFF_BFLASKWOD2, SMARTBUFF_BFLASKWOD3, SMARTBUFF_BFLASKWOD4, SMARTBUFF_BGRFLASKWOD1, SMARTBUFF_BGRFLASKWOD2, SMARTBUFF_BGRFLASKWOD3, SMARTBUFF_BGRFLASKWOD4 };
+  S.LinkFlaskLeg            = { SMARTBUFF_BFLASKLEG1, SMARTBUFF_BFLASKLEG2, SMARTBUFF_BFLASKLEG3, SMARTBUFF_BFLASKLEG4 };
   
   SMARTBUFF_BELIXIR1        = GetSpellInfo(28497);  --"Mighty Agility" B
   SMARTBUFF_BELIXIR2        = GetSpellInfo(60347);  --"Mighty Thoughts" G
@@ -677,8 +690,11 @@ function SMARTBUFF_InitSpellList()
       {SMARTBUFF_ICEBARRIER, 1, SMARTBUFF_CONST_SELF},
       {SMARTBUFF_COMBUSTION, -1, SMARTBUFF_CONST_SELF},
       {SMARTBUFF_ICYVEINS, 0.333, SMARTBUFF_CONST_SELF},
+	  {SMARTBUFF_ARCANEFAMILIAR, 60, SMARTBUFF_CONST_SELF},
       {SMARTBUFF_ARCANEPOWER, 0.25, SMARTBUFF_CONST_SELF},
       {SMARTBUFF_PRESENCEOFMIND, 0.165, SMARTBUFF_CONST_SELF},
+	  {SMARTBUFF_PRISBARRIER, 1, SMARTBUFF_CONST_SELF},
+      {SMARTBUFF_BLAZBARRIER, 1, SMARTBUFF_CONST_SELF},
       {SMARTBUFF_REFRESHMENT, 0.03, SMARTBUFF_CONST_ITEM, nil, SMARTBUFF_CONJUREDMANA, nil, S.FoodMage}
     };
   end
@@ -989,6 +1005,10 @@ function SMARTBUFF_InitSpellList()
   
   -- Potions
   SMARTBUFF_POTION = {
+    {SMARTBUFF_FLASKLEG1, 60, SMARTBUFF_CONST_POTION, nil, SMARTBUFF_BFLASKLEG1, S.LinkFlaskLeg},
+	{SMARTBUFF_FLASKLEG2, 60, SMARTBUFF_CONST_POTION, nil, SMARTBUFF_BFLASKLEG2},
+	{SMARTBUFF_FLASKLEG3, 60, SMARTBUFF_CONST_POTION, nil, SMARTBUFF_BFLASKLEG3},
+    {SMARTBUFF_FLASKLEG4, 60, SMARTBUFF_CONST_POTION, nil, SMARTBUFF_BFLASKLEG4},
     {SMARTBUFF_FLASKWOD1, 60, SMARTBUFF_CONST_POTION, nil, SMARTBUFF_BFLASKWOD1, S.LinkFlaskWoD},
     {SMARTBUFF_FLASKWOD2, 60, SMARTBUFF_CONST_POTION, nil, SMARTBUFF_BFLASKWOD2},
     {SMARTBUFF_FLASKWOD3, 60, SMARTBUFF_CONST_POTION, nil, SMARTBUFF_BFLASKWOD3},
