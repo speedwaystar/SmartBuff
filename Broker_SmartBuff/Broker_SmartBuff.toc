@@ -1,4 +1,4 @@
-## Interface: 70000
+## Interface: 70200
 ## Title: Broker: Smart|cffffffffBuff|r
 ## Version: 7.0a
 ## Notes: SmartBuff support for Data Broker
