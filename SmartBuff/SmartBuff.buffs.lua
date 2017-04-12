@@ -221,6 +221,7 @@ function SMARTBUFF_InitItemList()
   SMARTBUFF_MiscItem14          = GetItemInfo(128475); --"Empowered Augment Rune"
   SMARTBUFF_MiscItem15          = GetItemInfo(128482); --"Empowered Augment Rune"
   SMARTBUFF_MiscItem16          = GetItemInfo(122298); --"Bodyguard Miniaturization Device"
+  SMARTBUFF_MiscItem17          = GetItemInfo(147707); --"Fel Focus"
   
   SMARTBUFF_FLASK1              = GetItemInfo(46377);  --"Flask of Endless Rage"
   SMARTBUFF_FLASK2              = GetItemInfo(46376);  --"Flask of the Frost Wyrm"
@@ -534,6 +535,7 @@ function SMARTBUFF_InitSpellIDs()
   SMARTBUFF_BMiscItem14_2   = GetSpellInfo(175456); --"Hyper Augmentation"
   SMARTBUFF_BMiscItem14_3   = GetSpellInfo(175439); --"Stout Augmentation
   SMARTBUFF_BMiscItem16     = GetSpellInfo(181642); --"Bodyguard Miniaturization Device"
+  SMARTBUFF_BMiscItem17     = GetSpellInfo(242551); --"Fel Focus"
   
   S.LinkSafariHat           = { SMARTBUFF_BMiscItem9, SMARTBUFF_BMiscItem10 };
   S.LinkAugment             = { SMARTBUFF_BMiscItem14, SMARTBUFF_BMiscItem14_1, SMARTBUFF_BMiscItem14_2, SMARTBUFF_BMiscItem14_3 };
@@ -950,6 +952,7 @@ function SMARTBUFF_InitSpellList()
 
   -- Scrolls
   SMARTBUFF_SCROLL = {
+    {SMARTBUFF_MiscItem17, 60, SMARTBUFF_CONST_SCROLL, nil, SMARTBUFF_BMiscItem17},
     {SMARTBUFF_MiscItem16, 60, SMARTBUFF_CONST_SCROLL, nil, SMARTBUFF_BMiscItem16},
     {SMARTBUFF_MiscItem15, 60, SMARTBUFF_CONST_SCROLL, nil, SMARTBUFF_BMiscItem14, S.LinkAugment},
     {SMARTBUFF_MiscItem14, 60, SMARTBUFF_CONST_SCROLL, nil, SMARTBUFF_BMiscItem14, S.LinkAugment},
