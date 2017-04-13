@@ -163,6 +163,11 @@ aeldra@sonnenkinder.org
 Changes: 
 Rev     Date        Description
 ------  ----------  -----------------------
+7.2a    2017-04-13  Updated TOC
+                    Updated buff lists
+                    Updated item lists
+                    Corrected Priest Shadow Form
+
 7.0a    2016-08-16  Updated TOC
                     Added Demon Hunter class
                     Fixed LUA errors
