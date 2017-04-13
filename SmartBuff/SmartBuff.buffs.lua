@@ -136,7 +136,7 @@ function SMARTBUFF_InitItemList()
   SMARTBUFF_FARONAARFIZZ = GetItemInfo(133563); --"Faronaar Fizz"
   SMARTBUFF_BEARTARTARE = GetItemInfo(133576); --"Bear Tartare"
   SMARTBUFF_LEGIONCHILI = GetItemInfo(118428); --"Legion Chili"
-  SMARTBUFF_DEEPFRIEDMOSSGILL = GetItemInfo(201496); --"Deep-Fried Mossgill"
+  SMARTBUFF_DEEPFRIEDMOSSGILL = GetItemInfo(133561); --"Deep-Fried Mossgill"
   
   -- Food item IDs
   S.FoodItems = GetItems({
