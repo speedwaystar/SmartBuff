@@ -221,7 +221,7 @@ function SMARTBUFF_InitItemList()
   SMARTBUFF_MiscItem14          = GetItemInfo(128475); --"Empowered Augment Rune"
   SMARTBUFF_MiscItem15          = GetItemInfo(128482); --"Empowered Augment Rune"
   SMARTBUFF_MiscItem16          = GetItemInfo(122298); --"Bodyguard Miniaturization Device"
-  SMARTBUFF_MiscItem17          = GetItemInfo(147707); --"Fel Focus"
+  SMARTBUFF_MiscItem17          = GetItemInfo(147707); --"Repurposed Fel Focuser"
   
   SMARTBUFF_FLASK1              = GetItemInfo(46377);  --"Flask of Endless Rage"
   SMARTBUFF_FLASK2              = GetItemInfo(46376);  --"Flask of the Frost Wyrm"
