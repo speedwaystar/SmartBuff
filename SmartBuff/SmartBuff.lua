@@ -256,7 +256,7 @@ end
 
 local function CS()
   if (currentSpec == nil) then
-    currentSpec = GetActiveSpecGroup();
+    currentSpec = GetSpecialization();
   end
   if (currentSpec == nil) then
     currentSpec = 1;
@@ -508,8 +508,8 @@ function SMARTBUFF_OnEvent(self, event, ...)
     if(SmartBuffOptionsFrame:IsVisible()) then
       SmartBuffOptionsFrame:Hide();
     end
-    if (currentSpec ~= GetActiveSpecGroup()) then
-      currentSpec = GetActiveSpecGroup();
+    if (currentSpec ~= GetSpecialization()) then
+      currentSpec = GetSpecialization();
       if (B[currentSpec] == nil) then
         B[currentSpec] = { };
       end
@@ -2994,7 +2994,7 @@ function SMARTBUFF_Options_Init(self)
   end 
   
   currentTemplate = O.LastTemplate;
-  currentSpec = GetActiveSpecGroup();  
+  currentSpec = GetSpecialization();  
   
   if (O.OldWheelUp == nil) then O.OldWheelUp = ""; end
   if (O.OldWheelDown == nil) then O.OldWheelDown = ""; end
