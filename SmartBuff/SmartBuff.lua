@@ -628,6 +628,15 @@ end
 
 
 function SMARTBUFF_OnUpdate(self, elapsed)
+  if not self.Elapsed then 
+    self.Elapsed = 0.2
+  end
+  self.Elapsed = self.Elapsed - elapsed
+  if self.Elapsed > 0 then 
+    return 
+  end
+  self.Elapsed = 0.2
+  
   if (not isInit) then
     if (isLoaded and GetTime() > tAutoBuff + 0.5) then
       tAutoBuff = GetTime();
