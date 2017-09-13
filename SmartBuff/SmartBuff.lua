@@ -2327,7 +2327,7 @@ function SMARTBUFF_SetMissingBuffMessage(target, buff, icon, bCanCharge, nCharge
   
   -- play sound
   if (O.ToggleAutoSound) then
-    PlaySound(SMARTBUFF_CONST_AUTOSOUND);
+    PlaySound(1141);
   end
 end
 
