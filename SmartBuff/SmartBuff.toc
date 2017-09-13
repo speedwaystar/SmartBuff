@@ -1,4 +1,4 @@
-## Interface: 70200
+## Interface: 70300
 ## Title: Smart|cffffffffBuff|r by |cff00ff00Aeldra|r
 ## Version: 7.0a
 ## Author: |cff20d2ffAeldra|r (EU-Proudmoore)
