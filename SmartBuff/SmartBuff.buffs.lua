@@ -1025,8 +1025,9 @@ function SMARTBUFF_InitSpellList()
   AddItem( 43499,  58501,  10); -- Iron Boot Flask
   AddItem( 54653,  75532,  30); -- Darkspear Pride
   AddItem( 54651,  75531,  30); -- Gnomeregan Pride
-  AddItem( 128807, 192225, 60); -- Coin of Many Faces
-  AddItem( 68806, 96312, 30); -- Kalytha's Haunted Locket
+  AddItem(128807, 192225,  60); -- Coin of Many Faces
+  AddItem( 68806,  96312,  30); -- Kalytha's Haunted Locket
+  AddItem(153023, 224001,  60); -- Lightforged Augment Rune
   
   -- Potions
   SMARTBUFF_POTION = {
