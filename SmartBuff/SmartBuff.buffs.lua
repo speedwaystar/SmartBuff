@@ -1028,6 +1028,8 @@ function SMARTBUFF_InitSpellList()
   AddItem(128807, 192225,  60); -- Coin of Many Faces
   AddItem( 68806,  96312,  30); -- Kalytha's Haunted Locket
   AddItem(153023, 224001,  60); -- Lightforged Augment Rune
+  AddItem(129149, 193333,  60); -- Helheim Spirit Memory
+  AddItem(122304, 138927,  10); -- Fandral's Seed Pouch
   
   -- Potions
   SMARTBUFF_POTION = {
