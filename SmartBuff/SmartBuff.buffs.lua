@@ -205,7 +205,7 @@ function SMARTBUFF_InitItemList()
   SMARTBUFF_SOSTRENGHT9         = GetItemInfo(63304); --"Scroll of Strength IX"
   SMARTBUFF_SOPROTECTION9       = GetItemInfo(63308); --"Scroll of Protection IX"
   
-  SMARTBUFF_MiscItem1           = GetItemInfo(71134);  --"Celebration Package"
+  SMARTBUFF_MiscItem1           = GetItemInfo(147877); --"Celebration Package"
   SMARTBUFF_MiscItem2           = GetItemInfo(44986);  --"Warts-B-Gone Lip Balm"
   SMARTBUFF_MiscItem3           = GetItemInfo(69775);  --"Vrykul Drinking Horn"
   SMARTBUFF_MiscItem4           = GetItemInfo(86569);  --"Crystal of Insanity"
@@ -222,7 +222,7 @@ function SMARTBUFF_InitItemList()
   SMARTBUFF_MiscItem15          = GetItemInfo(128482); --"Empowered Augment Rune"
   SMARTBUFF_MiscItem16          = GetItemInfo(122298); --"Bodyguard Miniaturization Device"
   SMARTBUFF_MiscItem17          = GetItemInfo(147707); --"Repurposed Fel Focuser"
-  
+  SMARTBUFF_MiscItem18			= GetItemInfo(124640); --"Inky Black Potion"
   SMARTBUFF_FLASK1              = GetItemInfo(46377);  --"Flask of Endless Rage"
   SMARTBUFF_FLASK2              = GetItemInfo(46376);  --"Flask of the Frost Wyrm"
   SMARTBUFF_FLASK3              = GetItemInfo(46379);  --"Flask of Stoneblood"
@@ -362,6 +362,19 @@ function SMARTBUFF_InitSpellIDs()
   SMARTBUFF_SOULSTONE       = GetSpellInfo(20707); --"Soulstone"
   SMARTBUFF_GOSACRIFICE     = GetSpellInfo(108503);--"Grimoire of Sacrifice"
   SMARTBUFF_BLOODHORROR     = GetSpellInfo(111397);--"Blood Horror"
+  -- Warlock pets
+  SMARTBUFF_SUMMONIMP		= GetSpellInfo(688);    --"Summon Imp"
+  SMARTBUFF_SUMMONFELHUNTER	= GetSpellInfo(691);    --"Summon Fellhunter"
+  SMARTBUFF_SUMMONVOIDWALKER= GetSpellInfo(697);    --"Summon Voidwalker"
+  SMARTBUFF_SUMMONSUCCUBUS	= GetSpellInfo(712);    --"Summon Succubus"
+  SMARTBUFF_SUMMONINFERNAL	= GetSpellInfo(1122);   --"Summon Infernal"
+  SMARTBUFF_SUMMONDOOMGUARD	= GetSpellInfo(18540);  --"Summon Doomguard"
+  SMARTBUFF_SUMMONFELGUARD  = GetSpellInfo(30146);  --"Summon Felguard"
+  SMARTBUFF_SUMMONFELIMP	= GetSpellInfo(112866); --"Summon Fel Imp"
+  SMARTBUFF_SUMMONVOIDLORD	= GetSpellInfo(112867); --"Summon Voidlord"
+  SMARTBUFF_SUMMONSHIVARRA	= GetSpellInfo(112868); --"Summon Shivarra"
+  SMARTBUFF_SUMMONOBSERVER	= GetSpellInfo(112869); --"Summon Observer"
+  SMARTBUFF_SUMMONWRATHGUARD= GetSpellInfo(112870); --"Summon Wrathguard"
   
   -- Hunter
   SMARTBUFF_TRUESHOTAURA    = GetSpellInfo(19506); --"Trueshot Aura" (P)
@@ -518,7 +531,7 @@ function SMARTBUFF_InitSpellIDs()
   SMARTBUFF_SBSPIRIT        = GetSpellInfo(8112);   --"Scroll buff: Spirit"
   SMARTBUFF_SBSTRENGHT      = GetSpellInfo(8118);   --"Scroll buff: Strength"
   SMARTBUFF_SBPROTECTION    = GetSpellInfo(89344);  --"Scroll buff: Armor"
-  SMARTBUFF_BMiscItem1      = GetSpellInfo(150986); --"WoW's 10th Anniversary"
+  SMARTBUFF_BMiscItem1      = GetSpellInfo(243305); --"WoW's 13th Anniversary"
   SMARTBUFF_BMiscItem2      = GetSpellInfo(62574);  --"Warts-B-Gone Lip Balm"
   SMARTBUFF_BMiscItem3      = GetSpellInfo(98444);  --"Vrykul Drinking Horn"
   SMARTBUFF_BMiscItem4      = GetSpellInfo(127230); --"Visions of Insanity"
@@ -537,7 +550,8 @@ function SMARTBUFF_InitSpellIDs()
   SMARTBUFF_BMiscItem14_3   = GetSpellInfo(175439); --"Stout Augmentation
   SMARTBUFF_BMiscItem16     = GetSpellInfo(181642); --"Bodyguard Miniaturization Device"
   SMARTBUFF_BMiscItem17     = GetSpellInfo(242551); --"Fel Focus"
-  
+  SMARTBUFF_BMiscItem18		= GetSpellInfo(185394); --"Inky Blackness"
+
   S.LinkSafariHat           = { SMARTBUFF_BMiscItem9, SMARTBUFF_BMiscItem10 };
   S.LinkAugment             = { SMARTBUFF_BMiscItem14, SMARTBUFF_BMiscItem14_1, SMARTBUFF_BMiscItem14_2, SMARTBUFF_BMiscItem14_3 };
   
@@ -721,7 +735,19 @@ function SMARTBUFF_InitSpellList()
       {SMARTBUFF_GOSACRIFICE, 60, SMARTBUFF_CONST_SELF, nil, S.CheckPetNeeded},
       {SMARTBUFF_BLOODHORROR, 1, SMARTBUFF_CONST_SELF},
       {SMARTBUFF_SOULSTONE, 15, SMARTBUFF_CONST_GROUP, {18}, "WARRIOR;DRUID;SHAMAN;HUNTER;ROGUE;MAGE;PRIEST;PALADIN;WARLOCK;DEATHKNIGHT;MONK;DEMONHUNTER;HPET;WPET;DKPET"},
-      {SMARTBUFF_CREATEHS, 0.03, SMARTBUFF_CONST_ITEM, nil, SMARTBUFF_HEALTHSTONE}
+      {SMARTBUFF_CREATEHS, 0.03, SMARTBUFF_CONST_ITEM, nil, SMARTBUFF_HEALTHSTONE},
+      {SMARTBUFF_SUMMONIMP, -1, SMARTBUFF_CONST_SELF, nil, S.CheckPet},
+      {SMARTBUFF_SUMMONFELHUNTER, -1, SMARTBUFF_CONST_SELF, nil, S.CheckPet},
+      {SMARTBUFF_SUMMONVOIDWALKER, -1, SMARTBUFF_CONST_SELF, nil, S.CheckPet},
+      {SMARTBUFF_SUMMONSUCCUBUS, -1, SMARTBUFF_CONST_SELF, nil, S.CheckPet},
+      {SMARTBUFF_SUMMONINFERNAL, -1, SMARTBUFF_CONST_SELF, nil, S.CheckPet},
+      {SMARTBUFF_SUMMONDOOMGUARD, -1, SMARTBUFF_CONST_SELF, nil, S.CheckPet},
+	  {SMARTBUFF_SUMMONFELGUARD, -1, SMARTBUFF_CONST_SELF, nil, S.CheckPet},
+      {SMARTBUFF_SUMMONFELIMP, -1, SMARTBUFF_CONST_SELF, nil, S.CheckPet},
+      {SMARTBUFF_SUMMONVOIDLORD, -1, SMARTBUFF_CONST_SELF, nil, S.CheckPet},
+      {SMARTBUFF_SUMMONSHIVARRA, -1, SMARTBUFF_CONST_SELF, nil, S.CheckPet},
+      {SMARTBUFF_SUMMONOBSERVER, -1, SMARTBUFF_CONST_SELF, nil, S.CheckPet},
+      {SMARTBUFF_SUMMONWRATHGUARD, -1, SMARTBUFF_CONST_SELF, nil, S.CheckPet},
     };
   end
 
@@ -954,6 +980,7 @@ function SMARTBUFF_InitSpellList()
 
   -- Scrolls
   SMARTBUFF_SCROLL = {
+	{SMARTBUFF_MiscItem18, 120, SMARTBUFF_CONST_SCROLL, nil, SMARTBUFF_BMiscItem18}, -- Inky Black Potion
     {SMARTBUFF_MiscItem17, 60, SMARTBUFF_CONST_SCROLL, nil, SMARTBUFF_BMiscItem17, S.LinkFlaskLeg},
     {SMARTBUFF_MiscItem16, 60, SMARTBUFF_CONST_SCROLL, nil, SMARTBUFF_BMiscItem16},
     {SMARTBUFF_MiscItem15, 60, SMARTBUFF_CONST_SCROLL, nil, SMARTBUFF_BMiscItem14, S.LinkAugment},
@@ -1030,7 +1057,9 @@ function SMARTBUFF_InitSpellList()
   AddItem(153023, 224001,  60); -- Lightforged Augment Rune
   AddItem(129149, 193333,  60); -- Helheim Spirit Memory
   AddItem(122304, 138927,  10); -- Fandral's Seed Pouch
-  
+  AddItem(122293, 172762,  60); -- Trans-Dimensional Bird Whistle
+  AddItem(147537, 242014,  60); -- A Tiny Set of Warglaives
+
   -- Potions
   SMARTBUFF_POTION = {
     {SMARTBUFF_FLASKLEG1, 60, SMARTBUFF_CONST_POTION, nil, SMARTBUFF_BFLASKLEG1, S.LinkFlaskLeg},
