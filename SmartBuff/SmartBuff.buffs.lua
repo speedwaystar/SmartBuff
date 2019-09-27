@@ -66,7 +66,7 @@ local function LoadToys()
 	for i = 1, nTotal do
 		local num = C_ToyBox.GetToyFromIndex(i);
 		local id, name, icon = C_ToyBox.GetToyInfo(num);
-		if (PlayerHasToy(id)) then
+		if id and (PlayerHasToy(id)) then
 		  S.Toybox[tostring(name)] = {id, icon};
 		end
 	end
@@ -194,15 +194,15 @@ function SMARTBUFF_InitItemList()
   SMARTBUFF_SOSPIRIT7           = GetItemInfo(37097); --"Scroll of Spirit VII"
   SMARTBUFF_SOSPIRIT8           = GetItemInfo(37098); --"Scroll of Spirit VIII"
   SMARTBUFF_SOSPIRIT9           = GetItemInfo(63307); --"Scroll of Spirit IX"
-  SMARTBUFF_SOSTRENGHT1         = GetItemInfo(954);   --"Scroll of Strength I"
-  SMARTBUFF_SOSTRENGHT2         = GetItemInfo(2289);  --"Scroll of Strength II"
-  SMARTBUFF_SOSTRENGHT3         = GetItemInfo(4426);  --"Scroll of Strength III"
-  SMARTBUFF_SOSTRENGHT4         = GetItemInfo(10310); --"Scroll of Strength IV"
-  SMARTBUFF_SOSTRENGHT5         = GetItemInfo(27503); --"Scroll of Strength V"
-  SMARTBUFF_SOSTRENGHT6         = GetItemInfo(33462); --"Scroll of Strength VI"
-  SMARTBUFF_SOSTRENGHT7         = GetItemInfo(43465); --"Scroll of Strength VII"
-  SMARTBUFF_SOSTRENGHT8         = GetItemInfo(43466); --"Scroll of Strength VIII"
-  SMARTBUFF_SOSTRENGHT9         = GetItemInfo(63304); --"Scroll of Strength IX"
+  SMARTBUFF_SOSTRENGTH1         = GetItemInfo(954);   --"Scroll of Strength I"
+  SMARTBUFF_SOSTRENGTH2         = GetItemInfo(2289);  --"Scroll of Strength II"
+  SMARTBUFF_SOSTRENGTH3         = GetItemInfo(4426);  --"Scroll of Strength III"
+  SMARTBUFF_SOSTRENGTH4         = GetItemInfo(10310); --"Scroll of Strength IV"
+  SMARTBUFF_SOSTRENGTH5         = GetItemInfo(27503); --"Scroll of Strength V"
+  SMARTBUFF_SOSTRENGTH6         = GetItemInfo(33462); --"Scroll of Strength VI"
+  SMARTBUFF_SOSTRENGTH7         = GetItemInfo(43465); --"Scroll of Strength VII"
+  SMARTBUFF_SOSTRENGTH8         = GetItemInfo(43466); --"Scroll of Strength VIII"
+  SMARTBUFF_SOSTRENGTH9         = GetItemInfo(63304); --"Scroll of Strength IX"
   SMARTBUFF_SOPROTECTION9       = GetItemInfo(63308); --"Scroll of Protection IX"
   
   SMARTBUFF_MiscItem1           = GetItemInfo(147877); --"Celebration Package"
@@ -219,7 +219,7 @@ function SMARTBUFF_InitItemList()
   SMARTBUFF_MiscItem12          = GetItemInfo(129192); --"Inquisitor's Menacing Eye"
   SMARTBUFF_MiscItem13          = GetItemInfo(129210); --"Fel Crystal Fragments"
   SMARTBUFF_MiscItem14          = GetItemInfo(128475); --"Empowered Augment Rune"
-  SMARTBUFF_MiscItem15          = GetItemInfo(128482); --"Empowered Augment Rune"
+  SMARTBUFF_MiscItem15          = GetItemInfo(140587); --"Defiled Augment Rune"
   SMARTBUFF_MiscItem16          = GetItemInfo(122298); --"Bodyguard Miniaturization Device"
   SMARTBUFF_MiscItem17          = GetItemInfo(147707); --"Repurposed Fel Focuser"
   SMARTBUFF_MiscItem18			= GetItemInfo(124640); --"Inky Black Potion"
@@ -305,6 +305,11 @@ function SMARTBUFF_InitSpellIDs()
   SMARTBUFF_DRUID_TREE      = GetSpellInfo(33891); --"Incarnation: Tree of Life"
   SMARTBUFF_DRUID_TREANT    = GetSpellInfo(114282);--"Treant Form"
   SMARTBUFF_DRUID_MOONKIN   = GetSpellInfo(24858); --"Moonkin Form"
+  SMARTBUFF_DRUID_BEAR      = GetSpellInfo(5487);  -- "Bear Form"
+  SMARTBUFF_DRUID_AQUATIC   = GetSpellInfo(1066);  -- "Aquatic Form"
+  SMARTBUFF_DRUID_FLIGHT    = GetSpellInfo(33943); -- "Flight Form"
+  SMARTBUFF_DRUID_SWIFT     = GetSpellInfo(40120); -- "Swift Flight Form"
+  SMARTBUFF_DRUID_TRAVEL    = GetSpellInfo(783);   -- "Travel Form"
   SMARTBUFF_DRUID_MKAURA    = GetSpellInfo(24907); --"Moonkin Aura"
   SMARTBUFF_DRUID_TRACK     = GetSpellInfo(5225);  --"Track Humanoids"
   SMARTBUFF_MOTW            = GetSpellInfo(1126);  --"Mark of the Wild"
@@ -529,7 +534,7 @@ function SMARTBUFF_InitSpellIDs()
   SMARTBUFF_SBINTELLECT     = GetSpellInfo(8096);   --"Scroll buff: Intellect"
   SMARTBUFF_SBSTAMINA       = GetSpellInfo(8099);   --"Scroll buff: Stamina"
   SMARTBUFF_SBSPIRIT        = GetSpellInfo(8112);   --"Scroll buff: Spirit"
-  SMARTBUFF_SBSTRENGHT      = GetSpellInfo(8118);   --"Scroll buff: Strength"
+  SMARTBUFF_SBSTRENGTH      = GetSpellInfo(8118);   --"Scroll buff: Strength"
   SMARTBUFF_SBPROTECTION    = GetSpellInfo(89344);  --"Scroll buff: Armor"
   SMARTBUFF_BMiscItem1      = GetSpellInfo(243305); --"WoW's 13th Anniversary"
   SMARTBUFF_BMiscItem2      = GetSpellInfo(62574);  --"Warts-B-Gone Lip Balm"
@@ -548,12 +553,13 @@ function SMARTBUFF_InitSpellIDs()
   SMARTBUFF_BMiscItem14_1   = GetSpellInfo(175457); --"Focus Augmentation"
   SMARTBUFF_BMiscItem14_2   = GetSpellInfo(175456); --"Hyper Augmentation"
   SMARTBUFF_BMiscItem14_3   = GetSpellInfo(175439); --"Stout Augmentation
+  SMARTBUFF_BMiscItem15     = GetSpellInfo(224001); --"Defiled Augment Rune"
   SMARTBUFF_BMiscItem16     = GetSpellInfo(181642); --"Bodyguard Miniaturization Device"
   SMARTBUFF_BMiscItem17     = GetSpellInfo(242551); --"Fel Focus"
   SMARTBUFF_BMiscItem18		= GetSpellInfo(185394); --"Inky Blackness"
-
+  
   S.LinkSafariHat           = { SMARTBUFF_BMiscItem9, SMARTBUFF_BMiscItem10 };
-  S.LinkAugment             = { SMARTBUFF_BMiscItem14, SMARTBUFF_BMiscItem14_1, SMARTBUFF_BMiscItem14_2, SMARTBUFF_BMiscItem14_3 };
+  S.LinkAugment             = { SMARTBUFF_BMiscItem14, SMARTBUFF_BMiscItem14_1, SMARTBUFF_BMiscItem14_2, SMARTBUFF_BMiscItem14_3, SMARTBUFF_BMiscItem15 };
   
   -- Flasks & Elixirs
   SMARTBUFF_BFLASK1         = GetSpellInfo(53760);  --"Flask of Endless Rage"
@@ -781,7 +787,7 @@ function SMARTBUFF_InitSpellList()
     SMARTBUFF_BUFFLIST = {
       {SMARTBUFF_LIGHTNINGSHIELD, 60, SMARTBUFF_CONST_SELF, nil, nil, nil, S.ChainShamanShield},
       {SMARTBUFF_WATERSHIELD, 60, SMARTBUFF_CONST_SELF, nil, nil, nil, S.ChainShamanShield},
-      {SMARTBUFF_EARTHSHIELD, 10, SMARTBUFF_CONST_GROUP, {50,60,70,75,80}, "WARRIOR;DEATHKNIGHT;DRUID;SHAMAN;HUNTER;ROGUE;MAGE;PRIEST;PALADIN;WARLOCK;MONK;DEMONHUNTER;HPET;WPET;DKPET", nil, S.ChainShamanShield},
+      {SMARTBUFF_EARTHSHIELD, 10, SMARTBUFF_CONST_SELF, nil, nil, nil, S.ChainShamanShield},
       {SMARTBUFF_UNLEASHFLAME, 0.333, SMARTBUFF_CONST_SELF},
       {SMARTBUFF_ASCENDANCE, 0.25, SMARTBUFF_CONST_SELF},
       {SMARTBUFF_EMASTERY, 0.5, SMARTBUFF_CONST_SELF},
@@ -983,7 +989,7 @@ function SMARTBUFF_InitSpellList()
 	{SMARTBUFF_MiscItem18, 120, SMARTBUFF_CONST_SCROLL, nil, SMARTBUFF_BMiscItem18}, -- Inky Black Potion
     {SMARTBUFF_MiscItem17, 60, SMARTBUFF_CONST_SCROLL, nil, SMARTBUFF_BMiscItem17, S.LinkFlaskLeg},
     {SMARTBUFF_MiscItem16, 60, SMARTBUFF_CONST_SCROLL, nil, SMARTBUFF_BMiscItem16},
-    {SMARTBUFF_MiscItem15, 60, SMARTBUFF_CONST_SCROLL, nil, SMARTBUFF_BMiscItem14, S.LinkAugment},
+    {SMARTBUFF_MiscItem15, 60, SMARTBUFF_CONST_SCROLL, nil, SMARTBUFF_BMiscItem15, S.LinkAugment},
     {SMARTBUFF_MiscItem14, 60, SMARTBUFF_CONST_SCROLL, nil, SMARTBUFF_BMiscItem14, S.LinkAugment},
     {SMARTBUFF_MiscItem13, 10, SMARTBUFF_CONST_SCROLL, nil, SMARTBUFF_BMiscItem13},
     {SMARTBUFF_MiscItem12, 60, SMARTBUFF_CONST_SCROLL, nil, SMARTBUFF_BMiscItem12},
@@ -1034,32 +1040,52 @@ function SMARTBUFF_InitSpellList()
     {SMARTBUFF_SOSPIRIT3, 30, SMARTBUFF_CONST_SCROLL, nil, SMARTBUFF_SBSPIRIT},
     {SMARTBUFF_SOSPIRIT2, 30, SMARTBUFF_CONST_SCROLL, nil, SMARTBUFF_SBSPIRIT},
     {SMARTBUFF_SOSPIRIT1, 30, SMARTBUFF_CONST_SCROLL, nil, SMARTBUFF_SBSPIRIT},
-    {SMARTBUFF_SOSTRENGHT9, 30, SMARTBUFF_CONST_SCROLL, nil, SMARTBUFF_SBSTRENGHT},
-    {SMARTBUFF_SOSTRENGHT8, 30, SMARTBUFF_CONST_SCROLL, nil, SMARTBUFF_SBSTRENGHT},
-    {SMARTBUFF_SOSTRENGHT7, 30, SMARTBUFF_CONST_SCROLL, nil, SMARTBUFF_SBSTRENGHT},
-    {SMARTBUFF_SOSTRENGHT6, 30, SMARTBUFF_CONST_SCROLL, nil, SMARTBUFF_SBSTRENGHT},
-    {SMARTBUFF_SOSTRENGHT5, 30, SMARTBUFF_CONST_SCROLL, nil, SMARTBUFF_SBSTRENGHT},
-    {SMARTBUFF_SOSTRENGHT4, 30, SMARTBUFF_CONST_SCROLL, nil, SMARTBUFF_SBSTRENGHT},
-    {SMARTBUFF_SOSTRENGHT3, 30, SMARTBUFF_CONST_SCROLL, nil, SMARTBUFF_SBSTRENGHT},
-    {SMARTBUFF_SOSTRENGHT2, 30, SMARTBUFF_CONST_SCROLL, nil, SMARTBUFF_SBSTRENGHT},
-    {SMARTBUFF_SOSTRENGHT1, 30, SMARTBUFF_CONST_SCROLL, nil, SMARTBUFF_SBSTRENGHT},
-    {SMARTBUFF_SOPROTECTION9, 30, SMARTBUFF_CONST_SCROLL, nil, SMARTBUFF_SBPROTECTION}
+    {SMARTBUFF_SOSTRENGTH9, 30, SMARTBUFF_CONST_SCROLL, nil, SMARTBUFF_SBSTRENGTH},
+    {SMARTBUFF_SOSTRENGTH8, 30, SMARTBUFF_CONST_SCROLL, nil, SMARTBUFF_SBSTRENGTH},
+    {SMARTBUFF_SOSTRENGTH7, 30, SMARTBUFF_CONST_SCROLL, nil, SMARTBUFF_SBSTRENGTH},
+    {SMARTBUFF_SOSTRENGTH6, 30, SMARTBUFF_CONST_SCROLL, nil, SMARTBUFF_SBSTRENGTH},
+    {SMARTBUFF_SOSTRENGTH5, 30, SMARTBUFF_CONST_SCROLL, nil, SMARTBUFF_SBSTRENGTH},
+    {SMARTBUFF_SOSTRENGTH4, 30, SMARTBUFF_CONST_SCROLL, nil, SMARTBUFF_SBSTRENGTH},
+    {SMARTBUFF_SOSTRENGTH3, 30, SMARTBUFF_CONST_SCROLL, nil, SMARTBUFF_SBSTRENGTH},
+    {SMARTBUFF_SOSTRENGTH2, 30, SMARTBUFF_CONST_SCROLL, nil, SMARTBUFF_SBSTRENGTH},
+    {SMARTBUFF_SOSTRENGTH1, 30, SMARTBUFF_CONST_SCROLL, nil, SMARTBUFF_SBSTRENGTH},
+    {SMARTBUFF_SOPROTECTION9, 30, SMARTBUFF_CONST_SCROLL, nil, SMARTBUFF_SBPROTECTION},
+    -- BFA War-Scrolls
+    {SMARTBUFF_WSO_BATTLESHOUT, 30, SMARTBUFF_CONST_SCROLL, nil, SMARTBUFF_SB_BATTLESHOUT},
+    {SMARTBUFF_WSO_INTELLECT, 30, SMARTBUFF_CONST_SCROLL, nil, SMARTBUFF_SB_INTELLECT},
+    {SMARTBUFF_WSO_STAMINA, 30, SMARTBUFF_CONST_SCROLL, nil, SMARTBUFF_SB_STAMINA}
   };
   
   --      ItemId, SpellId, Duration [min]
-  AddItem(102463, 148429,  10); -- Fire-Watcher's Oath
-  AddItem(116115, 170869,  60); -- Blazing Wings
-  AddItem( 43499,  58501,  10); -- Iron Boot Flask
-  AddItem( 54653,  75532,  30); -- Darkspear Pride
-  AddItem( 54651,  75531,  30); -- Gnomeregan Pride
-  AddItem(128807, 192225,  60); -- Coin of Many Faces
-  AddItem( 68806,  96312,  30); -- Kalytha's Haunted Locket
-  AddItem(153023, 224001,  60); -- Lightforged Augment Rune
-  AddItem(129149, 193333,  60); -- Helheim Spirit Memory
-  AddItem(122304, 138927,  10); -- Fandral's Seed Pouch
-  AddItem(122293, 172762,  60); -- Trans-Dimensional Bird Whistle
-  AddItem(147537, 242014,  60); -- A Tiny Set of Warglaives
-
+  AddItem(102463, 148429, 10); -- Fire-Watcher's Oath
+  AddItem(116115, 170869, 60); -- Blazing Wings
+  AddItem( 43499,  58501, 10); -- Iron Boot Flask
+  AddItem( 54653,  75532, 30); -- Darkspear Pride
+  AddItem( 54651,  75531, 30); -- Gnomeregan Pride
+  AddItem(128807, 192225, 60); -- Coin of Many Faces
+  AddItem( 68806,  96312, 30); -- Kalytha's Haunted Locket
+  AddItem(153023, 224001, 60); -- Lightforged Augment Rune
+  AddItem(129149, 193333, 60); -- Helheim Spirit Memory
+  AddItem(122304, 138927, 10); -- Fandral's Seed Pouch
+  AddItem(122293, 172762, 60); -- Trans-Dimensional Bird Whistle
+  AddItem(147537, 242014, 60); -- A Tiny Set of Warglaives
+  -- BFA
+  AddItem(163743, 280007, 60); -- Drust Soulcatcher
+  AddItem(160053, 270058, 60); -- Battle-Scarred Augment Rune
+  AddItem(152638, 251836, 60); -- Flask of the Currents (AGI +238)
+  AddItem(152639, 251837, 60); -- Flask of the Endless Fathoms (INT +238)
+  AddItem(152640, 251838, 60); -- Flask of the Vast Horizon (STA +357)
+  AddItem(152641, 251839, 60); -- Flask of the Undertow (STR +238)
+  AddItem(162636, 277952, 60); -- Celebration Package (14th Anniversary)
+  AddItem(158201, 264766, 30); -- War-Scroll of Intellect
+  AddItem(158202, 264767, 30); -- War-Scroll of Battle Shout
+  AddItem(158204, 264769, 30); -- War-Scroll of Fortitude
+  AddItem(154166, 256790, 120); -- Coarse Leather Barding
+  AddItem(152813, 253112, 120); -- Monel-Hardened Stirrups
+  AddItem(168651, 298842, 60); -- Greater Flask of the Currents (AGI +360)
+  AddItem(168654, 298841, 60); -- Greater Flask of the Undertow (STR +360)
+  AddItem(168652, 298837, 60); -- Greater Flask of Endless Fathoms (INT +360)
+  
   -- Potions
   SMARTBUFF_POTION = {
     {SMARTBUFF_FLASKLEG1, 60, SMARTBUFF_CONST_POTION, nil, SMARTBUFF_BFLASKLEG1, S.LinkFlaskLeg},

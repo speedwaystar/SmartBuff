@@ -413,7 +413,7 @@ function SMARTBUFF_OnLoad(self)
   --self:RegisterEvent("PLAYER_AURAS_CHANGED");
   --self:RegisterEvent("ACTIONBAR_UPDATE_STATE");
     
-  self:RegisterEvent("CHAT_MSG_SPELL_FAILED_LOCALPLAYER");
+  --self:RegisterEvent("CHAT_MSG_SPELL_FAILED_LOCALPLAYER");
   self:RegisterEvent("UNIT_SPELLCAST_SUCCEEDED");
   
   --One of them allows SmartBuff to be closed with the Escape key
@@ -1537,21 +1537,31 @@ function SMARTBUFF_SyncBuffTimer(unit, grp, cBuff)
 end
 
 
+
 -- check if the player is shapeshifted
 function SMARTBUFF_IsShapeshifted()
-  if (sPlayerClass == "SHAMAN") then
-    if (GetShapeshiftForm(true) > 0) then
+	local druidStances =
+	{	
+		[1] = SMARTBUFF_DRUID_CAT,
+		[2] = SMARTBUFF_DRUID_TREANT,
+		[3] = SMARTBUFF_DRUID_TRAVEL,
+		[4] = SMARTBUFF_DRUID_AQUATIC,
+		[5] = SMARTBUFF_DRUID_BEAR,
+		[29] = SMARTBUFF_DRUID_FLIGHT,
+		[27] = SMARTBUFF_DRUID_SWIFT,
+		[31] = SMARTBUFF_DRUID_MOONKIN
+	};
+  if GetShapeshiftForm(true) > 0 then
+  	if (sPlayerClass == "SHAMAN") then
       return true, "Ghost Wolf";
-    end
-  elseif (sPlayerClass == "DRUID") then
-    local i;
-    for i = 1, GetNumShapeshiftForms(), 1 do
-      local icon, name, active, castable = GetShapeshiftFormInfo(i);
-      if (active and castable and name ~= SMARTBUFF_DRUID_TREANT) then
-        return true, name;
+  	elseif (sPlayerClass == "DRUID") then
+  		i = GetShapeshiftFormID()		
+    	local name = druidStances[GetShapeshiftFormID()];
+	  	if (name ~= SMARTBUFF_DRUID_TREANT) then
+    		return true, name;
       end
     end  
-  end
+ 	end
   return false, nil;
 end
 -- END SMARTBUFF_IsShapeshifted
@@ -2058,7 +2068,7 @@ function SMARTBUFF_BuffUnit(unit, subgroup, mode, spell)
                   --SMARTBUFF_AddMsgD("Group buff is active, single buff canceled!");
                 end
 
-              end -- END normal buff
+              end -- END normal buffwW
 
               -- check if shapeshifted and cancel buff if it is not possible to cast it
               if (buff and cBuff.Type ~= SMARTBUFF_CONST_TRACK and cBuff.Type ~= SMARTBUFF_CONST_FORCESELF) then
@@ -2420,6 +2430,15 @@ function SMARTBUFF_doCast(unit, id, spellName, levels, type)
 end
 -- END SMARTBUFF_doCast
 
+function SMARTBUFF_UnitBuff(unit, buff)
+  for i = 1, 40 do
+    if buff == UnitBuff(unit, i) then
+      return UnitBuff (unit, i)
+    end
+  end
+  return (nil)
+end
+
 
 -- checks if the unit is the player
 function SMARTBUFF_IsPlayer(unit)
@@ -2504,7 +2523,8 @@ function SMARTBUFF_CheckUnitBuffs(unit, buffN, buffT, buffL, buffC)
       for n, v in pairs(buffL) do
         if (v and v ~= defBuff) then
           SMARTBUFF_AddMsgD("Check linked buff ("..uname.."): "..v);
-          buff, _, icon, count, _, duration, timeleft, caster = UnitBuff(unit, v);
+          --print("Check linked buff ("..uname.."): "..v);
+          buff, icon, count, _, duration, timeleft, caster = SMARTBUFF_UnitBuff(unit, v);
           if (buff) then
             timeleft = timeleft - time;
             SMARTBUFF_AddMsgD("Linked buff found: "..buff..", "..timeleft..", "..icon);
@@ -2542,7 +2562,7 @@ function SMARTBUFF_CheckUnitBuffs(unit, buffN, buffT, buffL, buffC)
   -- Check default buff
   if (defBuff) then
     SMARTBUFF_AddMsgD("Check default buff ("..uname.."): "..defBuff);
-    buff, _, icon, count, _, duration, timeleft, caster = UnitBuff(unit, defBuff);
+    local buff, icon, count, _, duration, timeleft, caster = SMARTBUFF_UnitBuff(unit, defBuff);
     if (buff) then
       timeleft = timeleft - time;
       if (SMARTBUFF_IsPlayer(caster)) then
@@ -2569,7 +2589,7 @@ function SMARTBUFF_CheckBuffLink(unit, defBuff, buffT, buffL)
       for n, v in pairs(buffL) do
         if (v and v ~= defBuff) then
           SMARTBUFF_AddMsgD("Check linked buff ("..uname.."): "..v);
-          buff, _, icon, count, _, duration, timeleft, caster = UnitBuff(unit, v);
+          buff, icon, count, _, duration, timeleft, caster = UnitBuff(unit, v);
           if (buff) then
             timeleft = timeleft - time;
             SMARTBUFF_AddMsgD("Linked buff found: "..buff..", "..timeleft..", "..icon);
@@ -2618,19 +2638,21 @@ function SMARTBUFF_CheckBuff(unit, buffName, isMine)
   if (not unit or not buffName) then
     return false, 0;
   end
-  local buff, _, _, _, _, _, timeleft, caster = UnitAura(unit, buffName, nil, "HELPFUL");
-  if (buff) then
-    SMARTBUFF_AddMsgD(UnitName(unit).." buff found: "..buff, 0, 1, 0.5);
-    if (buff == buffName) then
-      timeleft = timeleft - GetTime();
-      if (isMine and caster) then
-        if (SMARTBUFF_IsPlayer(caster)) then
-          return true, timeleft, caster;
-        end
-        return false, 0, nil;
-      end
-      return true, timeleft, SMARTBUFF_IsPlayer(caster);
-    end
+  for i = 1, 40 do
+	  local buff, _, _, _, _, timeleft, caster = UnitAura(unit, i, "HELPFUL");
+	  if (buff) then
+	    SMARTBUFF_AddMsgD(UnitName(unit).." buff found: "..buff, 0, 1, 0.5);
+	    if (buff == buffName) then
+	      timeleft = timeleft - GetTime();
+	      if (isMine and caster) then
+	        if (SMARTBUFF_IsPlayer(caster)) then
+	          return true, timeleft, caster;
+	        end
+	        return false, 0, nil;
+	      end
+	      return true, timeleft, SMARTBUFF_IsPlayer(caster);
+	    end
+	  end
   end
   return false, 0;
 end
@@ -2720,7 +2742,7 @@ function SMARTBUFF_IsDebuffTexture(unit, debufftex)
   local name, icon;
   -- name,rank,icon,count,type = UnitDebuff("unit", id or "name"[,"rank"])
   while (UnitDebuff(unit, i)) do
-    name, _, icon, _, _ = UnitDebuff(unit, i);
+    name, icon, _, _ = UnitDebuff(unit, i);
     --SMARTBUFF_AddMsgD(i .. ". " .. name .. ", " .. icon);  
     if (string.find(icon, debufftex)) then
       active = true;
@@ -4583,3 +4605,4 @@ function SMARTBUFF_ToggleTutorial(close)
 		HelpPlate_Hide(true);
 	end
 end
+
